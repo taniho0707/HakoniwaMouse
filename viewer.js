@@ -1,6 +1,6 @@
-import * as THREE from './three/Three.js';
+import * as THREE from './three.js/build/three.module.js';
 
-import { GUI } from './three-addons/lil-gui.module.min.js';
+// import { GUI } from './lil-gui/src/GUI.js';
 
 let camera, scene, renderer;
 let geometry, material, cube;
