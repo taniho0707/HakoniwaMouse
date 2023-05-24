@@ -1,15 +1,16 @@
-import * as THREE from './three.js/build/three.module.js';
+import * as THREE from './node_modules/three/build/three.module.js';
 
-// import { GUI } from './lil-gui/src/GUI.js';
+import { OrbitControls } from './node_modules/three/examples/jsm/controls/OrbitControls.js';
+import { GUI } from './node_modules/lil-gui/dist/lil-gui.esm.js';
 
-let camera, scene, renderer;
+let camera, scene, renderer, controls;
 let geometry, material, cube;
 
 init();
 animate();
 
 function init() {
-  // const gui = new GUI();
+  const gui = new GUI();
   // gui.add(mesh, 'count', 0, count);
 
   scene = new THREE.Scene();
@@ -32,6 +33,8 @@ function init() {
   scene.add(cube);
 
   camera.position.z = 5;
+
+  controls = new OrbitControls(camera, document.body);
 
   window.addEventListener('resize', onWindowResize);
 }
