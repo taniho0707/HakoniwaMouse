@@ -25,7 +25,8 @@ class TcpServer extends EventEmitter {
     });
 
     // クライアントから受信したデータを処理する
-    // 先頭 1Byte によって後続の処理が変わるため、振りわけを行う
+    // 先頭 4Byte：データ長 uint32_t BE (この4Byteを含まない)
+    // 次の 1Byte によって後続の処理が変わるため、振りわけを行う
     socket.on('data', (data) => {
       this.buf_uncompleted = Buffer.concat([
         this.buf_uncompleted,

@@ -1,0 +1,4 @@
+[submodule "maze"]
+	path = maze
+	url = https://github.com/taniho0707/maze.git
+	branch = master
