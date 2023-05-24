@@ -20,10 +20,11 @@
   <!-- You can also require other files to run in this process -->
   <!-- <script src="./renderer.js"></script> -->
 
-  <script type="importmap-shim">
+  <script type="importmap">
   {
     "imports": {
-      "three": "./three.js/build/three.module.js"
+      "three": "./node_modules/three/build/three.module.js",
+      "three/addons/": "./node_modules/three/examples/jsm/"
     }
   }
   </script>
