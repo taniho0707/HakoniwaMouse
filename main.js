@@ -2,6 +2,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const { TcpServer } = require('./tcp_server.js');
+const { MazeLoader } = require('./maze_loader.js');
 
 const TCP_PORT = 3000;
 
@@ -45,6 +46,14 @@ app.whenReady().then(() => {
   });
   server.on('set_maze_title', (str) => {
     console.log('Event received (set_maze_title): ' + str);
+    MazeLoader(str).then(
+      (result) => {
+        console.log(JSON.stringify(result));
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   });
   server.on('set_maze_marker', (arr) => {
     console.log('Event received (set_maze_marker): ' + arr.length);
