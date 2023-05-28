@@ -18,7 +18,7 @@ function showFloor(scene) {
   let geometry = new THREE.BoxGeometry(2.892, 2.892, 0.05);
   let material = new THREE.MeshBasicMaterial({ color: 0x333333 });
   mesh_floor = new THREE.Mesh(geometry, material);
-  mesh_floor.position.set(2.892 / 2 - 0.03, 2.892 / 2 - 0.03, -0.05 / 2);
+  mesh_floor.position.set(2.892 / 2 - 0.006, 2.892 / 2 - 0.006, -0.05 / 2);
   scene.add(mesh_floor);
 }
 
@@ -131,10 +131,10 @@ function reloadMaze(maze) {
 
 function setCamera() {
   camera = new THREE.OrthographicCamera(
-    (-2 * window.innerWidth) / window.innerHeight,
-    (2 * window.innerWidth) / window.innerHeight,
-    2,
-    -2
+    ((-2.892 / 2) * window.innerWidth) / window.innerHeight,
+    ((2.892 / 2) * window.innerWidth) / window.innerHeight,
+    2.892 / 2,
+    -2.892 / 2
   );
   renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -144,7 +144,7 @@ function setCamera() {
   controls.target = new THREE.Vector3(2.892 / 2, 2.892 / 2, 0);
 
   camera.position.set(2.892 / 2, 2.892 / 2, 5);
-  camera.lookAt(2.892 / 2, 2.892 / 2, 0);
+  camera.lookAt(2.892 / 2 - 0.006, 2.892 / 2 - 0.006, 0);
 }
 
 function init() {
@@ -170,7 +170,7 @@ function init() {
 }
 
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  // camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 
   renderer.setSize(window.innerWidth, window.innerHeight);
