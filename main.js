@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { TcpServer } = require('./tcp_server.js');
 const { MazeLoader } = require('./maze_loader.js');
@@ -48,7 +48,10 @@ app.whenReady().then(() => {
     console.log('Event received (set_maze_title): ' + str);
     MazeLoader(str).then(
       (result) => {
-        console.log(JSON.stringify(result));
+        console.log(`Maze ${str} loaded successfly`);
+
+        // reload command send for viewer.js
+        mainWindow.webContents.send('maze_load', result);
       },
       (err) => {
         console.error(err);
