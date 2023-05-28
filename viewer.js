@@ -128,6 +128,41 @@ function reloadMaze(maze) {
 }
 
 // マウス
+let mesh_mouse;
+let size_mouse = {
+  width: 0.045,
+  length: 0.06,
+  height: 0.02,
+};
+function loadMouse() {
+  let geometry = new THREE.BoxGeometry(
+    size_mouse.width,
+    size_mouse.length,
+    size_mouse.height
+  );
+  let materials = [
+    new THREE.MeshBasicMaterial({ color: 0x00aa00 }),
+    new THREE.MeshBasicMaterial({ color: 0x00aa00 }),
+    new THREE.MeshBasicMaterial({ color: 0x00aa00 }),
+    new THREE.MeshBasicMaterial({ color: 0x00aa00 }),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+    new THREE.MeshBasicMaterial({ color: 0x00aa00 }),
+  ];
+  mesh_mouse = new THREE.Mesh(geometry, materials);
+}
+
+function showMouse() {
+  scene.add(mesh_mouse);
+}
+
+function hideMouse() {
+  scene.remove(mesh_mouse);
+}
+
+function moveMouse(pos) {
+  mesh_mouse.rotation.set(0, 0, -1 * pos.a);
+  mesh_mouse.position.set(pos.x, pos.y, size_mouse.height / 2);
+}
 
 function setCamera() {
   camera = new THREE.OrthographicCamera(
@@ -161,11 +196,19 @@ function init() {
   showPillars(scene, 'Half');
   showWalls(scene, 'Half', null);
 
+  loadMouse();
+  showMouse();
+  moveMouse({ x: 0.045, y: 0.045, a: 0 });
+
   window.addEventListener('resize', onWindowResize);
 
   window.electronAPI.onMazeLoad((_event, arg) => {
     clearMeshes(scene);
     reloadMaze(arg);
+  });
+
+  window.electronAPI.onSetMousePosition((_event, arg) => {
+    moveMouse(arg);
   });
 }
 

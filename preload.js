@@ -20,4 +20,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
 contextBridge.exposeInMainWorld('electronAPI', {
   onMazeLoad: (callback) => ipcRenderer.on('maze_load', callback),
+  onSetMousePosition: (callback) => ipcRenderer.on('mouse_position', callback),
 });

@@ -43,6 +43,7 @@ app.whenReady().then(() => {
 
   server.on('set_mouse_position', (x, y, a) => {
     console.log(`Event received (set_mouse_position): ${x}, ${y}, ${a}`);
+    mainWindow.webContents.send('mouse_position', { x: x, y: y, a: a });
   });
   server.on('set_maze_title', (str) => {
     console.log('Event received (set_maze_title): ' + str);
