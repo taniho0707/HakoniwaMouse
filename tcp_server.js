@@ -47,6 +47,11 @@ class TcpServer extends EventEmitter {
           case 0x01: // マウス座標/向き設定 float型
             this.setMousePosition(buf_trimmed.subarray(1));
             break;
+          case 0x40: // IMUの値取得要望
+            data = this.getMouseImuData();
+            this.emit('get_mouse_imu_data');
+            socket.write(data);
+            break;
           case 0x80: // 迷路タイトル設定
             this.setMazeTitle(buf_trimmed.subarray(1));
             break;
@@ -158,6 +163,13 @@ class TcpServer extends EventEmitter {
         '有効なデータ長は 8の倍数+1 です。受信データ長は ' + len + 'でした。'
       );
     }
+  }
+
+  getMouseImuData() {
+    return Buffer.from([
+      0x00, 0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00,
+      0x06, 0x00,
+    ]);
   }
 
   handlePoint(point) {

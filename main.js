@@ -45,6 +45,9 @@ app.whenReady().then(() => {
     console.log(`Event received (set_mouse_position): ${x}, ${y}, ${a}`);
     mainWindow.webContents.send('mouse_position', { x: x, y: y, a: a });
   });
+  server.on('get_mouse_imu_data', () => {
+    console.log('Event received (get_mouse_imu_data)');
+  });
   server.on('set_maze_title', (str) => {
     console.log('Event received (set_maze_title): ' + str);
     MazeLoader(str).then(
